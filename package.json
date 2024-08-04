@@ -1,0 +1,32 @@
+{
+  "name": "short-host",
+  "version": "0.0.1",
+  "description": "TODO",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/short-host.js",
+  "files": [
+    "src/short-host.js"
+  ],
+  "scripts": {
+    "check": "npm run lint:fix && npm run format && npm run typecheck && npm run test",
+    "format": "prettier --config .prettierrc.js --write --cache .",
+    "format:check": "prettier --config .prettierrc.js --check .",
+    "lint": "eslint -c config/eslint.config.js --ignore-pattern .wrangler/",
+    "lint:fix": "eslint -c config/eslint.config.js --ignore-pattern .wrangler/ --fix",
+    "test": "node --test \"src/**/*.test.js\"",
+    "test:watch": "node --test --watch \"src/**/*.test.js\"",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@types/node": "^22.1.0",
+    "eslint": "^9.8.0",
+    "prettier": "3.3.3",
+    "prettier-plugin-organize-imports": "^4.0.0",
+    "typescript": "^5.5.4"
+  },
+  "volta": {
+    "node": "22.5.1"
+  }
+}
