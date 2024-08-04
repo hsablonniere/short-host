@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;,"/>
+  <title>short-host</title>
+  <style>
+
+  body {
+    display: grid;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    gap: 2em;
+    justify-content: center;
+    margin: 5em 0 0;
+    text-align: center;
+  }
+
+  h1,
+  input,
+  a,
+  .bad-host {
+    font-size: 2em;
+    margin: 0;
+    text-align: center;
+  }
+
+  input {
+    font-family: monospace;
+    font-size: 3em;
+    width: 8em;
+  }
+
+  .bad-host {
+    color: red;
+  }
+
+  .hidden {
+    display: none;
+  }
+  </style>
+  <script type="module">
+  import { fromShortHost, toShortHost } from './src/short-host.js';
+
+  const $input = document.querySelector('input');
+  const $a = document.querySelector('a');
+  const $badHost = document.querySelector('.bad-host');
+
+  function updateDiplay () {
+    const shortHost = fromShortHost($input.value);
+    if (shortHost != null) {
+      const url = 'http://' + shortHost;
+      $a.href = url;
+      $a.textContent = url;
+      $a.classList.remove('hidden');
+      $badHost.classList.add('hidden');
+    }
+    else {
+      $a.classList.add('hidden');
+      $badHost.classList.remove('hidden');
+    }
+  }
+
+  const host = new URL(location.href).searchParams.get('host');
+  if (host != null) {
+    const shortHost = toShortHost(host);
+    console.log({ host, shortHost });
+    $input.value = shortHost;
+  }
+
+  updateDiplay();
+  $input.addEventListener('input', updateDiplay);
+  </script>
+</head>
+<body>
+<h1>short-host</h1>
+<input type="text" autocorrect="off" autocapitalize="none">
+<a href=""></a>
+<div class="bad-host hidden">bad host</div>
+</body>
+</html>
