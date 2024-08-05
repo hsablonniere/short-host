@@ -1,13 +1,14 @@
 {
   "name": "short-host",
   "version": "0.1.0",
-  "description": "TODO",
+  "description": "Represent any IPv4 based host like `A.B.C.D:P` as a short sequence of 1 to 10 chars",
   "license": "MIT",
   "type": "module",
   "main": "src/short-host.js",
   "files": [
     "src/short-host.js"
   ],
+  "repository": "https://github.com/hsablonniere/short-host",
   "scripts": {
     "check": "npm run lint:fix && npm run format && npm run typecheck && npm run test",
     "format": "prettier --config .prettierrc.js --write --cache .",
