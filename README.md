@@ -63,8 +63,8 @@ console.log(fromShortHost('bw'));
 
 The main goals and constraints were:
 
-* Focus on local IPs starting with `192.168`, especially `192.168.0` and `192.168.1`.
-* Favor HTTP ports often used in local dev like `8080`, `5173` or `3000`
-* Be able to represent any IPv4 and port
+- Focus on local IPs starting with `192.168`, especially `192.168.0` and `192.168.1`.
+- Favor HTTP ports often used in local dev like `8080`, `5173` or `3000`
+- Be able to represent any IPv4 and port
 
 You can have a look at [IMPLEMENTATION_DETAILS.md](./IMPLEMENTATION_DETAILS.md) to learn how the encoding/decoding works.

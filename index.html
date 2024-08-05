@@ -1,105 +1,102 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;,"/>
-  <title>short-host</title>
-  <style>
-
-  html,
-  body {
-    margin: 0;
-  }
-
-  body {
-    align-content: center;
-    display: grid;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    gap: 1.5em;
-    justify-content: center;
-    margin: 10em 0 0;
-  }
-
-  .label-text {
-    display: block;
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-  }
-
-  input {
-    border-radius: 0.25em;
-    border: 1px solid #aaa;
-    font-family: monospace;
-    font-size: 2em;
-    margin: 0;
-    padding: 0.5em 0.75em;
-    width: 7em;
-  }
-
-  a {
-    width: 15em;
-  }
-
-  #bad-host {
-    color: red;
-    width: 15em;
-  }
-
-  .hidden {
-    visibility: hidden;
-  }
-
-  .dnone {
-    display: none;
-  }
-  </style>
-  <script type="module">
-  import { fromShortHost, toShortHost } from './src/short-host.js';
-
-  const $input = document.querySelector('input');
-  const $a = document.querySelector('a');
-  const $badHost = document.querySelector('#bad-host');
-
-  function updateDiplay () {
-    if ($input.value === '') {
-      $a.className = 'hidden';
-      $badHost.className = 'dnone';
-    }
-    else {
-      const shortHost = fromShortHost($input.value);
-      if (shortHost != null) {
-        const url = 'http://' + shortHost;
-        $a.href = url;
-        $a.textContent = url;
-        $a.className = '';
-        $badHost.className = 'dnone';
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;," />
+    <title>short-host</title>
+    <style>
+      html,
+      body {
+        margin: 0;
       }
-      else {
-        $a.className = 'dnone';
-        $badHost.className = '';
+
+      body {
+        align-content: center;
+        display: grid;
+        font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+        gap: 1.5em;
+        justify-content: center;
+        margin: 10em 0 0;
       }
-    }
-  }
 
-  const host = new URL(location.href).searchParams.get('host');
-  if (host != null) {
-    const shortHost = toShortHost(host);
-    console.log({ host, shortHost });
-    $input.value = shortHost;
-  }
+      .label-text {
+        display: block;
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+      }
 
-  updateDiplay();
-  $input.addEventListener('input', updateDiplay);
-  </script>
-</head>
-<body>
-<label>
-  <span class="label-text">short host:</span>
-  <input type="text" autocorrect="off" autocapitalize="none">
-</label>
-<a href="http://example.com" class="hidden" target="_blank">http://example.com</a>
-<div id="bad-host" class="hidden">Bad host!</div>
-</body>
+      input {
+        border-radius: 0.25em;
+        border: 1px solid #aaa;
+        font-family: monospace;
+        font-size: 2em;
+        margin: 0;
+        padding: 0.5em 0.75em;
+        width: 7em;
+      }
+
+      a {
+        width: 15em;
+      }
+
+      #bad-host {
+        color: red;
+        width: 15em;
+      }
+
+      .hidden {
+        visibility: hidden;
+      }
+
+      .dnone {
+        display: none;
+      }
+    </style>
+    <script type="module">
+      import { fromShortHost, toShortHost } from './src/short-host.js';
+
+      const $input = document.querySelector('input');
+      const $a = document.querySelector('a');
+      const $badHost = document.querySelector('#bad-host');
+
+      function updateDiplay() {
+        if ($input.value === '') {
+          $a.className = 'hidden';
+          $badHost.className = 'dnone';
+        } else {
+          const shortHost = fromShortHost($input.value);
+          if (shortHost != null) {
+            const url = 'http://' + shortHost;
+            $a.href = url;
+            $a.textContent = url;
+            $a.className = '';
+            $badHost.className = 'dnone';
+          } else {
+            $a.className = 'dnone';
+            $badHost.className = '';
+          }
+        }
+      }
+
+      const host = new URL(location.href).searchParams.get('host');
+      if (host != null) {
+        const shortHost = toShortHost(host);
+        console.log({ host, shortHost });
+        $input.value = shortHost;
+      }
+
+      updateDiplay();
+      $input.addEventListener('input', updateDiplay);
+    </script>
+  </head>
+  <body>
+    <label>
+      <span class="label-text">short host:</span>
+      <input type="text" autocorrect="off" autocapitalize="none" />
+    </label>
+    <a href="http://example.com" class="hidden" target="_blank">http://example.com</a>
+    <div id="bad-host" class="hidden">Bad host!</div>
+  </body>
 </html>
