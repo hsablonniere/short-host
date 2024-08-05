@@ -7,35 +7,51 @@
   <title>short-host</title>
   <style>
 
+  html,
   body {
-    display: grid;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    gap: 2em;
-    justify-content: center;
-    margin: 5em 0 0;
-    text-align: center;
+    margin: 0;
   }
 
-  h1,
-  input,
-  a,
-  .bad-host {
-    font-size: 2em;
-    margin: 0;
-    text-align: center;
+  body {
+    align-content: center;
+    display: grid;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    gap: 1.5em;
+    justify-content: center;
+    margin: 10em 0 0;
+  }
+
+  .label-text {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
   }
 
   input {
+    border-radius: 0.25em;
+    border: 1px solid #aaa;
     font-family: monospace;
-    font-size: 3em;
-    width: 8em;
+    font-size: 2em;
+    margin: 0;
+    padding: 0.5em 0.75em;
+    width: 7em;
   }
 
-  .bad-host {
+  a {
+    width: 15em;
+  }
+
+  #bad-host {
     color: red;
+    width: 15em;
   }
 
   .hidden {
+    visibility: hidden;
+  }
+
+  .dnone {
     display: none;
   }
   </style>
@@ -44,20 +60,26 @@
 
   const $input = document.querySelector('input');
   const $a = document.querySelector('a');
-  const $badHost = document.querySelector('.bad-host');
+  const $badHost = document.querySelector('#bad-host');
 
   function updateDiplay () {
-    const shortHost = fromShortHost($input.value);
-    if (shortHost != null) {
-      const url = 'http://' + shortHost;
-      $a.href = url;
-      $a.textContent = url;
-      $a.classList.remove('hidden');
-      $badHost.classList.add('hidden');
+    if ($input.value === '') {
+      $a.className = 'hidden';
+      $badHost.className = 'dnone';
     }
     else {
-      $a.classList.add('hidden');
-      $badHost.classList.remove('hidden');
+      const shortHost = fromShortHost($input.value);
+      if (shortHost != null) {
+        const url = 'http://' + shortHost;
+        $a.href = url;
+        $a.textContent = url;
+        $a.className = '';
+        $badHost.className = 'dnone';
+      }
+      else {
+        $a.className = 'dnone';
+        $badHost.className = '';
+      }
     }
   }
 
@@ -73,9 +95,11 @@
   </script>
 </head>
 <body>
-<h1>short-host</h1>
-<input type="text" autocorrect="off" autocapitalize="none">
-<a href=""></a>
-<div class="bad-host hidden">bad host</div>
+<label>
+  <span class="label-text">short host:</span>
+  <input type="text" autocorrect="off" autocapitalize="none">
+</label>
+<a href="http://example.com" class="hidden" target="_blank">http://example.com</a>
+<div id="bad-host" class="hidden">Bad host!</div>
 </body>
 </html>
